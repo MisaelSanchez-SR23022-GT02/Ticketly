@@ -1,8 +1,15 @@
-
 //PROCESO PRINCIPAL AUTENTICACION
 Proceso Autenticacion
 	Definir opcion_deseada Como Entero
-	Definir nombre_usuario_guardado, contrasenia_guardada Como Cadena
+	Definir nombres_guardados, contrasenias_guardadas Como Cadena
+	Definir cantidad_usuarios Como Entero
+	
+	Dimension nombres_guardados[10]
+	Dimension contrasenias_guardadas[10]
+	
+	cantidad_usuarios <- 1
+	nombres_guardados[1] <- 'Admin'
+	contrasenias_guardadas[1] <- '1234'
 	Repetir
 		Escribir '==Bienvenido=='
 		Escribir 'Selecciona la opcion deseada'
@@ -13,43 +20,34 @@ Proceso Autenticacion
 		
 		Segun opcion_deseada Hacer 
 			1:
-				InicioSesion(nombre_usuario_guardado, contrasenia_guardada )
+				InicioSesion(nombres_guardados, contrasenias_guardadas, cantidad_usuarios)
 			2:
-				CrearCuenta(nombre_usuario_guardado, contrasenia_guardada )
+				CrearCuenta(nombres_guardados, contrasenias_guardadas, cantidad_usuarios)
 		FinSegun
-	Hasta Que  opcion_deseada = 0
+	Hasta Que opcion_deseada = 0
 FinProceso
 
 //MODULO PARA INICIAR SESION
-SubAlgoritmo InicioSesion(nombre_usuario_guardado, contrasenia_guardada )
+SubAlgoritmo InicioSesion(nombres_guardados, contrasenias_guardadas, cantidad_usuarios)
 	
 	Borrar Pantalla
 	Definir verificar_login Como Logico
 	Definir nombre_usuario_ingresado, contrasenia_ingresada Como Cadena
-	Definir administrador, contrasenia Como Caracter
 	
-	administrador <- 'Admin'
-	contrasenia <- '1234'
 	verificar_login <- Falso
-	
 	
 	Escribir 'Ingrese el nombre de usuario'
 	Leer nombre_usuario_ingresado
 	Escribir 'Ingrese la contraseña'
 	Leer contrasenia_ingresada
 	
-	Si nombre_usuario_ingresado == administrador Y contrasenia_ingresada == contrasenia Entonces
-		verificar_login <- Verdadero
-	SiNo
-		verificar_login <- Login(nombre_usuario_guardado, contrasenia_guardada, nombre_usuario_ingresado, contrasenia_ingresada)
-	FinSi
-	
+	verificar_login <- Login(nombres_guardados, contrasenias_guardadas, cantidad_usuarios, nombre_usuario_ingresado, contrasenia_ingresada)
 	
 	Escribir '-----------------------------------------------'
-	Si verificar_login == Verdadero  Entonces
+	Si verificar_login == Verdadero Entonces
 		MenuPrincipal()
 	SiNo
-		Escribir 'Error: Acceso denegado, usuario o contraseña incorrectos, vuelva a intentarlo!'
+		Escribir 'Error: Acceso denegado, usuario o contraseña incorrectos!'
 	FinSi
 	Escribir '-----------------------------------------------'
 	Escribir 'Presione enter para volver al menu principal...'
@@ -57,30 +55,43 @@ SubAlgoritmo InicioSesion(nombre_usuario_guardado, contrasenia_guardada )
 	Borrar Pantalla
 FinSubAlgoritmo
 
-
 //MODULO PARA CREAR UN NUEVO USUARIO
-SubAlgoritmo CrearCuenta (nombre_usuario_guardado Por Referencia, contrasenia_guardada Por Referencia)
+SubAlgoritmo CrearCuenta(nombres_guardados Por Referencia, contrasenias_guardadas Por Referencia, cantidad_usuarios Por Referencia)
 	Borrar Pantalla
-	Escribir 'Ingrese el nombre de usuario'
-	Leer nombre_usuario_guardado
-	Escribir 'Ingrese la contrasea'
-	Leer contrasenia_guardada
-	Escribir '-----------------------------------------------'
-	Escribir '¡Usuario creado exitosamente! Puedes iniciar sesion'
-	Escribir '-----------------------------------------------'
+	
+	Si cantidad_usuarios >= 10 Entonces
+		Escribir 'No se pueden registrar mas usuarios (limite alcanzado)'
+	SiNo
+		Definir nuevo_nombre, nueva_contrasenia Como Cadena
+		
+		Escribir 'Ingrese el nombre de usuario'
+		Leer nuevo_nombre
+		Escribir 'Ingrese la contraseña'
+		Leer nueva_contrasenia
+		
+		cantidad_usuarios <- cantidad_usuarios + 1
+		nombres_guardados[cantidad_usuarios] <- nuevo_nombre
+		contrasenias_guardadas[cantidad_usuarios] <- nueva_contrasenia
+		
+		Escribir '-----------------------------------------------'
+		Escribir '¡Usuario creado exitosamente! Puedes iniciar sesion'
+		Escribir '-----------------------------------------------'
+	FinSi
+	
 	Escribir 'Presione enter para volver al menu principal...'
 	Esperar Tecla
 	Borrar Pantalla
 FinSubAlgoritmo
 
-
 //FUNCION PARA COMPARAR USUARIOS
-Funcion resultado <- Login(nombre_usuario_guardado, contrasenia_guardada, nombre_usuario_ingresado, contrasenia_ingresada)
-	Si nombre_usuario_ingresado == nombre_usuario_guardado Y contrasenia_ingresada == contrasenia_guardada Entonces
-		resultado <- Verdadero
-	Sino 
-		resultado <- Falso
-	Finsi
+Funcion resultado <- Login(nombres_guardados, contrasenias_guardadas, cantidad_usuarios, nombre_usuario_ingresado, contrasenia_ingresada)
+	Definir i Como Entero
+	resultado <- Falso
+	Para i <- 1 Hasta cantidad_usuarios Hacer
+		Si nombre_usuario_ingresado == nombres_guardados[i] Y contrasenia_ingresada == contrasenias_guardadas[i] Entonces
+			resultado <- Verdadero
+		FinSi
+	FinPara
 FinFuncion
 
 //MENU PRINCIPAL
@@ -96,11 +107,9 @@ SubAlgoritmo MenuPrincipal
 		Escribir '0.Salir'
 		Leer opcion_deseada
 		
-		segun opcion_deseada Hacer
+		Segun opcion_deseada Hacer
 			1:
 				//ComprarTicket()
 		FinSegun
 	Hasta Que opcion_deseada = 0
 FinSubAlgoritmo
-
-
