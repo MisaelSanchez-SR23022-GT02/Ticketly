@@ -1,222 +1,291 @@
 Algoritmo Ticketly
-    Definir opcion, sub_opcion Como Entero
-    
-    // Arreglos para PEL�CULAS
+	
+    // --- Peliculas ---
     Definir cantidad_peliculas Como Entero
-    Dimension ids_peli[10], duraciones_peli[10]
-    Dimension titulos_peli[10], generos_peli[10]
+    Dimension id_peliculas[10], duracion_peliculas[10]
+    Dimension titulo_peliculas[10], genero_peliculas[10]
     cantidad_peliculas <- 0
-
-	    // Arreglos para FUNCIONES
+	
+    // --- Salas ---
+    Definir cantidad_salas Como Entero
+    Dimension id_salas[10], capacidad_salas[10], asientos_disponibles_salas[10]
+    Dimension matriz_asientos_salas[10, 50]
+    cantidad_salas <- 0
+	
+    // --- Funciones ---
     Definir cantidad_funciones Como Entero
-    Dimension ids_funcion[20], ids_peli_funcion[20], salas_funcion[20]
-    Dimension horarios_funcion[20]
+    Dimension id_funciones[20], id_pelicula_por_funcion[20], id_sala_por_funcion[20]
+    Dimension horario_funciones[20]
     cantidad_funciones <- 0
-    
-    // Arreglos para BOLETOS
-    Definir cantidad_boletos Como Entero
-    Dimension ids_boleto[100], ids_funcion_boleto[100], asientos_boleto[100]
-    cantidad_boletos <- 0
-    
-    // Variables temporales para lecturas
-    Definir lectura_titulo, lectura_genero Como Caracter
-    Definir lectura_duracion, lectura_id_funcion, lectura_asiento Como Entero
-    
+	
+    // --- Variables temporales ---
+    Definir opcion_menu, sub_opcion_menu Como Entero
+    Definir texto_ingresado, texto_ingresado_secundario Como Caracter
+    Definir numero_ingresado, numero_ingresado_secundario, i, j Como Entero
+    Definir existe_registro, es_valido Como Logico
+	
     Repetir
         Limpiar Pantalla
         Escribir "=================================="
-        Escribir "    SISTEMA DE BOLETER�A DE CINE"
+        Escribir "   TICKETLY - BOLETERIA DE CINE"
         Escribir "=================================="
-        Escribir "1. Gestionar Pel�culas"
-        Escribir "2. Gestionar Salas"
-        Escribir "3. Gestionar Funciones"
-        Escribir "4. Venta de Boletos"
-        Escribir "5. Reportes"
-        Escribir "6. Salir"
+        Escribir " 1. Gestionar Peliculas"
+        Escribir " 2. Gestionar Salas"
+        Escribir " 3. Gestionar Funciones"
+        Escribir " 4. Venta de Boletos"
+        Escribir " 5. Salir"
         Escribir "=================================="
-        Leer opcion
-        
-        Segun opcion Hacer
+        Escribir "Seleccione una opcion: "
+        Leer opcion_menu
+		
+        Segun opcion_menu Hacer
+			
             1:
                 Repetir
                     Limpiar Pantalla
-                    Escribir "--- GESTI�N DE PEL�CULAS ---"
-                    Escribir "1. Listar pel�culas"
-                    Escribir "2. Agregar pel�cula"
+                    Escribir "--- GESTION DE PELICULAS ---"
+                    Escribir "1. Listar peliculas"
+                    Escribir "2. Agregar pelicula"
                     Escribir "0. Volver"
-                    Leer sub_opcion
-                    
-                    Segun sub_opcion Hacer
-                        1: 
-                            listar_peliculas(ids_peli, titulos_peli, duraciones_peli, generos_peli, cantidad_peliculas)
-                        2: 
-                            Limpiar Pantalla
-                            Escribir "T�tulo: "
-                            Leer lectura_titulo
-                            Escribir "Duraci�n (min): "
-                            Leer lectura_duracion
-                            Escribir "G�nero: "
-                            Leer lectura_genero
-                            
-                            crear_pelicula(ids_peli, titulos_peli, duraciones_peli, generos_peli, cantidad_peliculas, lectura_titulo, lectura_duracion, lectura_genero)
+                    Escribir "Seleccione: "
+                    Leer sub_opcion_menu
+					
+                    Segun sub_opcion_menu Hacer
+                        1:
+                            MostrarPeliculas(id_peliculas, titulo_peliculas, duracion_peliculas, genero_peliculas, cantidad_peliculas)
+							
+                        2:
+                            Si cantidad_peliculas >= 10 Entonces
+                                Escribir "Error: Limite de 10 peliculas alcanzado."
+                                Esperar Tecla
+                            Sino
+                                Limpiar Pantalla
+                                Escribir "--- AGREGAR PELICULA ---"
+                                Escribir "Titulo: "
+                                Leer texto_ingresado
+                                Escribir "Duracion (minutos): "
+                                Leer numero_ingresado
+                                Escribir "Genero: "
+                                Leer texto_ingresado_secundario
+								
+                                cantidad_peliculas <- cantidad_peliculas + 1
+                                id_peliculas[cantidad_peliculas] <- cantidad_peliculas
+                                titulo_peliculas[cantidad_peliculas] <- texto_ingresado
+                                duracion_peliculas[cantidad_peliculas] <- numero_ingresado
+                                genero_peliculas[cantidad_peliculas] <- texto_ingresado_secundario
+								
+                                Escribir "Pelicula agregada con ID: ", cantidad_peliculas
+                                Esperar Tecla
+                            FinSi
                     FinSegun
-                Hasta Que sub_opcion = 0
-                
-			2: // --- GESTI�N DE SALAS ---
-                Escribir "Modulo de Salas"
-                Esperar Tecla
-                
-            3: // --- GESTION DE FUNCIONES ---
+                Hasta Que sub_opcion_menu = 0
+            2:
+                Repetir
+                    Limpiar Pantalla
+                    Escribir "--- GESTION DE SALAS ---"
+                    Escribir "1. Listar salas"
+                    Escribir "2. Agregar sala"
+                    Escribir "3. Ver asientos de una sala"
+                    Escribir "0. Volver"
+                    Escribir "Seleccione: "
+                    Leer sub_opcion_menu
+					
+                    Segun sub_opcion_menu Hacer
+                        1:
+                            MostrarSalas(id_salas, capacidad_salas, asientos_disponibles_salas, cantidad_salas)
+							
+                        2:
+                            Si cantidad_salas >= 10 Entonces
+                                Escribir "Error: Limite de 10 salas alcanzado."
+                                Esperar Tecla
+                            Sino
+                                Limpiar Pantalla
+                                Escribir "--- AGREGAR SALA ---"
+                                Escribir "Capacidad de la sala (max 50): "
+                                Leer numero_ingresado
+								
+                                Si numero_ingresado > 50 Entonces
+                                    numero_ingresado <- 50
+                                    Escribir "Capacidad ajustada al maximo: 50"
+                                FinSi
+                                Si numero_ingresado < 1 Entonces
+                                    numero_ingresado <- 1
+                                    Escribir "Capacidad ajustada al minimo: 1"
+                                FinSi
+								
+                                cantidad_salas <- cantidad_salas + 1
+                                id_salas[cantidad_salas] <- cantidad_salas
+                                capacidad_salas[cantidad_salas] <- numero_ingresado
+                                asientos_disponibles_salas[cantidad_salas] <- numero_ingresado
+								
+                                Para j <- 1 Hasta numero_ingresado Hacer
+                                    matriz_asientos_salas[cantidad_salas, j] <- 0
+                                FinPara
+								
+                                Escribir "Sala creada con ID: ", cantidad_salas
+                                Esperar Tecla
+                            FinSi
+							
+                        3:
+                            Escribir "Ingrese el ID de la sala: "
+                            Leer numero_ingresado
+                            VerAsientos(id_salas, capacidad_salas, matriz_asientos_salas, asientos_disponibles_salas, cantidad_salas, numero_ingresado)
+                    FinSegun
+                Hasta Que sub_opcion_menu = 0
+            3:
                 Repetir
                     Limpiar Pantalla
                     Escribir "--- GESTION DE FUNCIONES ---"
                     Escribir "1. Listar funciones"
                     Escribir "2. Agregar funcion"
                     Escribir "0. Volver"
-                    Leer sub_opcion
-                    
-                    Segun sub_opcion Hacer
+                    Escribir "Seleccione: "
+                    Leer sub_opcion_menu
+					
+                    Segun sub_opcion_menu Hacer
                         1:
-                            listar_funciones(ids_funcion, ids_peli_funcion, horarios_funcion, salas_funcion, cantidad_funciones)
+                            MostrarFunciones(id_funciones, id_pelicula_por_funcion, id_sala_por_funcion, horario_funciones, cantidad_funciones)
+							
                         2:
-                            Limpiar Pantalla
-                            Escribir "ID de pelicula: "
-                            Leer lectura_id_funcion
-                            Escribir "Sala (numero): "
-                            Leer lectura_asiento
-                            Escribir "Horario (ej: 18:00): "
-                            Leer lectura_titulo
-                            
-                            crear_funcion(ids_funcion, ids_peli_funcion, horarios_funcion, salas_funcion, cantidad_funciones, lectura_id_funcion, lectura_asiento, lectura_titulo)
+                            Si cantidad_funciones >= 20 Entonces
+                                Escribir "Error: Limite de 20 funciones alcanzado."
+                                Esperar Tecla
+                            Sino
+                                Limpiar Pantalla
+                                Escribir "--- AGREGAR FUNCION ---"
+                                Escribir "ID de pelicula (1 a ", cantidad_peliculas, "): "
+                                Leer numero_ingresado
+                                es_valido <- Falso
+                                Para i <- 1 Hasta cantidad_peliculas Hacer
+                                    Si id_peliculas[i] = numero_ingresado Entonces
+                                        es_valido <- Verdadero
+                                    FinSi
+                                FinPara
+								
+                                Si es_valido = Falso Entonces
+                                    Escribir "Error: No existe pelicula con ID ", numero_ingresado
+                                    Esperar Tecla
+                                Sino
+                                    numero_ingresado_secundario <- numero_ingresado
+                                    Escribir "ID de sala (1 a ", cantidad_salas, "): "
+                                    Leer numero_ingresado
+                                    es_valido <- Falso
+                                    Para i <- 1 Hasta cantidad_salas Hacer
+                                        Si id_salas[i] = numero_ingresado Entonces
+                                            es_valido <- Verdadero
+                                        FinSi
+                                    FinPara
+									
+                                    Si es_valido = Falso Entonces
+                                        Escribir "Error: No existe sala con ID ", numero_ingresado
+                                        Esperar Tecla
+                                    Sino
+                                        Escribir "Horario (ej: 18:00): "
+                                        Leer texto_ingresado
+										
+                                        cantidad_funciones <- cantidad_funciones + 1
+                                        id_funciones[cantidad_funciones] <- cantidad_funciones
+                                        id_pelicula_por_funcion[cantidad_funciones] <- numero_ingresado_secundario
+                                        id_sala_por_funcion[cantidad_funciones] <- numero_ingresado
+                                        horario_funciones[cantidad_funciones] <- texto_ingresado
+										
+                                        Escribir "Funcion creada con ID: ", cantidad_funciones
+                                        Esperar Tecla
+                                    FinSi
+                                FinSi
+                            FinSi
                     FinSegun
-                Hasta Que sub_opcion = 0
-                
-            4: // --- VENTA DE BOLETOS ---
-                Limpiar Pantalla
-                Escribir "ID de funcion: "
-                Leer lectura_id_funcion
-                Escribir "Numero de asiento: "
-                Leer lectura_asiento
-                
-                vender_boleto(ids_boleto, ids_funcion_boleto, asientos_boleto, cantidad_boletos, lectura_id_funcion, lectura_asiento, cantidad_funciones)
+                Hasta Que sub_opcion_menu = 0
 				
-            6:
-                Escribir "Saliendo del sistema..."
+            4:
+				// ==============================
+				// MODULO 4: VENTA DE BOLETOS
+				// ==============================
+            5:
+                Escribir "Hasta luego!"
+				
         FinSegun
-    Hasta Que opcion = 6
+    Hasta Que opcion_menu = 5
+	
 FinAlgoritmo
 
-// --- SUBPROCESOS ---
 
-SubProceso listar_peliculas(arreglo_ids, arreglo_titulos, arreglo_duraciones, arreglo_generos, cantidad_total)
+// =============================================
+// SUBPROCESOS (solo lectura / mostrar datos)
+// =============================================
+
+SubProceso MostrarPeliculas(arreglo_ids, arreglo_titulos, arreglo_durs, arreglo_generos, cantidad)
     Limpiar Pantalla
-    Escribir "--- CAT�LOGO DE PEL�CULAS ---"
-    Si cantidad_total = 0 Entonces
-        Escribir "No hay pel�culas registradas actualmente."
+    Escribir "--- CATALOGO DE PELICULAS ---"
+    Si cantidad = 0 Entonces
+        Escribir "No hay peliculas registradas."
     Sino
-        Escribir "ID | T�TULO | DURACI�N | G�NERO"
-        Escribir "--------------------------------"
-        Para indice <- 1 Hasta cantidad_total Hacer
-            Escribir arreglo_ids[indice], " - ", arreglo_titulos[indice], " (", arreglo_duraciones[indice], " min) [", arreglo_generos[indice], "]"
+        Escribir "ID  | TITULO | DUR(min) | GENERO"
+        Escribir "----------------------------------------------------"
+        Definir i Como Entero
+        Para i <- 1 Hasta cantidad Hacer
+            Escribir arreglo_ids[i], " | ", arreglo_titulos[i], " | ", arreglo_durs[i], " min | ", arreglo_generos[i]
         FinPara
     FinSi
-    Escribir "--------------------------------"
-    Escribir "Presione una tecla para volver..."
     Esperar Tecla
 FinSubProceso
 
-SubProceso crear_pelicula(arreglo_ids, arreglo_titulos, arreglo_duraciones, arreglo_generos, contador_actual Por Referencia, nuevo_titulo, nueva_duracion, nuevo_genero)
-    Si contador_actual < 10 Entonces
-        contador_actual <- contador_actual + 1
-        arreglo_ids[contador_actual] <- contador_actual
-        arreglo_titulos[contador_actual] <- nuevo_titulo
-        arreglo_duraciones[contador_actual] <- nueva_duracion
-        arreglo_generos[contador_actual] <- nuevo_genero
-        Escribir "Pel�cula creada con ID: ", contador_actual
+
+SubProceso MostrarSalas(arreglo_ids, arreglo_caps, arreglo_disps, cantidad)
+    Limpiar Pantalla
+    Escribir "--- SALAS REGISTRADAS ---"
+    Si cantidad = 0 Entonces
+        Escribir "No hay salas registradas."
     Sino
-        Escribir "Error: No hay espacio para m�s pel�culas (L�mite 10)."
+        Escribir "ID | CAPACIDAD | ASIENTOS LIBRES"
+        Escribir "-----------------------------------"
+        Definir i Como Entero
+        Para i <- 1 Hasta cantidad Hacer
+            Escribir arreglo_ids[i], " | ", arreglo_caps[i], " | ", arreglo_disps[i]
+        FinPara
     FinSi
     Esperar Tecla
+FinSubProceso
 
-// FUNCIONES
 
-SubProceso listar_funciones(arreglo_ids, arreglo_ids_peli, arreglo_horarios, arreglo_salas, cantidad_total)
+SubProceso VerAsientos(arreglo_ids, arreglo_caps, arreglo_asientos, arreglo_disps, cantidad, id_buscado)
+    Limpiar Pantalla
+    Definir i, j Como Entero
+    Definir sala_encontrada Como Logico
+    sala_encontrada <- Falso
+	
+    Para i <- 1 Hasta cantidad Hacer
+        Si arreglo_ids[i] = id_buscado Entonces
+            sala_encontrada <- Verdadero
+            Escribir "--- SALA ID: ", arreglo_ids[i], " | Libres: ", arreglo_disps[i], "/", arreglo_caps[i], " ---"
+            Escribir "Asientos (0=Libre, 1=Ocupado):"
+            Para j <- 1 Hasta arreglo_caps[i] Hacer
+                Escribir Sin Saltar "[ ", j, ":", arreglo_asientos[i, j], " ] "
+            FinPara
+            Escribir ""
+        FinSi
+        Esperar Tecla
+    FinPara
+	
+    Si sala_encontrada = Falso Entonces
+        Escribir "Sala con ID ", id_buscado, " no encontrada."
+        Esperar Tecla
+    FinSi
+FinSubProceso
+
+
+SubProceso MostrarFunciones(arreglo_ids, arreglo_pelis, arreglo_salas, arreglo_horarios, cantidad)
     Limpiar Pantalla
     Escribir "--- FUNCIONES PROGRAMADAS ---"
-    Si cantidad_total = 0 Entonces
-        Escribir "No hay funciones registradas actualmente."
+    Si cantidad = 0 Entonces
+        Escribir "No hay funciones registradas."
     Sino
-        Escribir "ID | PELICULA | SALA | HORARIO"
-        Escribir "--------------------------------"
-        Para indice <- 1 Hasta cantidad_total Hacer
-            Escribir arreglo_ids[indice], " - Peli ID: ", arreglo_ids_peli[indice], " | Sala: ", arreglo_salas[indice], " | ", arreglo_horarios[indice]
+        Escribir "ID | PELICULA ID | SALA ID | HORARIO"
+        Escribir "--------------------------------------"
+        Definir i Como Entero
+        Para i <- 1 Hasta cantidad Hacer
+            Escribir arreglo_ids[i], "  | ", arreglo_pelis[i], " | ", arreglo_salas[i], " | ", arreglo_horarios[i]
         FinPara
     FinSi
-    Escribir "--------------------------------"
-    Escribir "Presione una tecla para volver..."
     Esperar Tecla
 FinSubProceso
-
-SubProceso crear_funcion(arreglo_ids, arreglo_ids_peli, arreglo_horarios, arreglo_salas, contador_actual Por Referencia, id_pelicula, sala, horario)
-    Si contador_actual < 20 Entonces
-        contador_actual <- contador_actual + 1
-        arreglo_ids[contador_actual] <- contador_actual
-        arreglo_ids_peli[contador_actual] <- id_pelicula
-        arreglo_salas[contador_actual] <- sala
-        arreglo_horarios[contador_actual] <- horario
-        Escribir "Funcion creada con ID: ", contador_actual
-    Sino
-        Escribir "Error: No hay espacio para mas funciones (Limite 20)."
-    FinSi
-    Esperar Tecla
-FinSubProceso
-
-// BOLETOS
-SubProceso vender_boleto(arreglo_ids, arreglo_ids_funcion, arreglo_asientos, contador_actual Por Referencia, id_funcion, asiento, total_funciones)
-    // Validar que la funcion existe
-    Definir funcion_valida Como Logico
-    funcion_valida <- Falso
-    
-    Para i <- 1 Hasta total_funciones Hacer
-        Si id_funcion = i Entonces
-            funcion_valida <- Verdadero
-        FinSi
-    FinPara
-    
-    Si funcion_valida = Falso Entonces
-        Escribir "Error: La funcion con ID ", id_funcion, " no existe."
-        Esperar Tecla
-        Retornar
-    FinSi
-    
-    // Validar que el asiento no este ya vendido en esa funcion
-    Definir asiento_ocupado Como Logico
-    asiento_ocupado <- Falso
-    
-    Para j <- 1 Hasta contador_actual Hacer
-        Si arreglo_ids_funcion[j] = id_funcion Y arreglo_asientos[j] = asiento Entonces
-            asiento_ocupado <- Verdadero
-        FinSi
-    FinPara
-    
-    Si asiento_ocupado Entonces
-        Escribir "Error: El asiento ", asiento, " ya esta vendido para esta funcion."
-    Sino
-        Si contador_actual < 100 Entonces
-            contador_actual <- contador_actual + 1
-            arreglo_ids[contador_actual] <- contador_actual
-            arreglo_ids_funcion[contador_actual] <- id_funcion
-            arreglo_asientos[contador_actual] <- asiento
-            Escribir "=== BOLETO VENDIDO ==="
-            Escribir "Boleto ID : ", contador_actual
-            Escribir "Funcion ID: ", id_funcion
-            Escribir "Asiento   : ", asiento
-            Escribir "======================"
-        Sino
-            Escribir "Error: No hay espacio para mas boletos (Limite 100)."
-        FinSi
-    FinSi
-    Esperar Tecla
-
-FinSubProceso
-
