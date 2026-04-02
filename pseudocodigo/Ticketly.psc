@@ -18,6 +18,11 @@ Algoritmo Ticketly
     Dimension horario_funciones[20]
     cantidad_funciones <- 0
 	
+    // --- Boletos ---
+    Definir cantidad_boletos Como Entero
+    Dimension id_boletos[100], id_funcion_por_boleto[100], numero_asiento_boleto[100]
+    cantidad_boletos <- 0
+	
     // --- Variables temporales ---
     Definir opcion_menu, sub_opcion_menu Como Entero
     Definir texto_ingresado, texto_ingresado_secundario Como Caracter
@@ -198,9 +203,78 @@ Algoritmo Ticketly
                 Hasta Que sub_opcion_menu = 0
 				
             4:
-				// ==============================
-				// MODULO 4: VENTA DE BOLETOS
-				// ==============================
+                Limpiar Pantalla
+                Escribir "--- VENTA DE BOLETOS ---"
+				
+                Si cantidad_funciones = 0 Entonces
+                    Escribir "No hay funciones disponibles."
+                    Esperar Tecla
+                Sino
+                    MostrarFunciones(id_funciones, id_pelicula_por_funcion, id_sala_por_funcion, horario_funciones, cantidad_funciones)
+					
+                    Escribir "Ingrese ID de la funcion: "
+                    Leer numero_ingresado
+                    es_valido <- Falso
+                    Para i <- 1 Hasta cantidad_funciones Hacer
+                        Si id_funciones[i] = numero_ingresado Entonces
+                            es_valido <- Verdadero
+                        FinSi
+                    FinPara
+					
+                    Si es_valido = Falso Entonces
+                        Escribir "Error: No existe la funcion con ID ", numero_ingresado
+                        Esperar Tecla
+                    Sino
+                        numero_ingresado_secundario <- numero_ingresado
+                        VerAsientos(id_salas, capacidad_salas, matriz_asientos_salas, asientos_disponibles_salas, cantidad_salas, id_sala_por_funcion[numero_ingresado_secundario])
+						
+                        Escribir "Ingrese numero de asiento: "
+                        Leer numero_ingresado
+						
+                        es_valido <- Verdadero
+                        Si cantidad_boletos > 0 Entonces
+                            Para i <- 1 Hasta cantidad_boletos Hacer
+                                Si id_funcion_por_boleto[i] = numero_ingresado_secundario Y numero_asiento_boleto[i] = numero_ingresado Entonces
+                                    es_valido <- Falso
+                                FinSi
+                            FinPara
+                        FinSi
+						
+                        Si es_valido = Falso Entonces
+                            Escribir "Error: El asiento ", numero_ingresado, " ya fue vendido para esta funcion."
+                            Esperar Tecla
+                        Sino
+                            Si cantidad_boletos >= 100 Entonces
+                                Escribir "Error: Limite de boletos alcanzado."
+                                Esperar Tecla
+                            Sino
+                                Para i <- 1 Hasta cantidad_salas Hacer
+                                    Si id_salas[i] = id_sala_por_funcion[numero_ingresado_secundario] Entonces
+                                        Si numero_ingresado >= 1 Y numero_ingresado <= capacidad_salas[i] Entonces
+                                            matriz_asientos_salas[i, numero_ingresado] <- 1
+                                            asientos_disponibles_salas[i] <- asientos_disponibles_salas[i] - 1
+                                        FinSi
+                                    FinSi
+                                FinPara
+								
+                                cantidad_boletos <- cantidad_boletos + 1
+                                id_boletos[cantidad_boletos] <- cantidad_boletos
+                                id_funcion_por_boleto[cantidad_boletos] <- numero_ingresado_secundario
+                                numero_asiento_boleto[cantidad_boletos] <- numero_ingresado
+								
+                                Escribir ""
+                                Escribir "=============================="
+                                Escribir "       BOLETO VENDIDO"
+                                Escribir "=============================="
+                                Escribir " Boleto ID : ", cantidad_boletos
+                                Escribir " Funcion   : ", numero_ingresado_secundario
+                                Escribir " Asiento   : ", numero_ingresado
+                                Escribir "=============================="
+                                Esperar Tecla
+                            FinSi
+                        FinSi
+                    FinSi
+                FinSi
             5:
                 Escribir "Hasta luego!"
 				
