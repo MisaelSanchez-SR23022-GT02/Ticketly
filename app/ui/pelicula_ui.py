@@ -1,4 +1,5 @@
 from app.services.pelicula_service import PeliculaService
+from app.utils.limpiar_utils import limpiar_pantalla
 import time
 service = PeliculaService()
 
@@ -6,6 +7,7 @@ def menu_peliculas():
     opcion = ""
 
     while opcion != "0":
+        limpiar_pantalla()
         print("\n--- TICKETLY - GESTION PELICULAS ---")
         print("1. Crear peliculas")
         print("2. Listar peliculas")
@@ -15,13 +17,15 @@ def menu_peliculas():
         opcion = input("Elige una opción: ")
 
         if opcion == "1":
+            limpiar_pantalla()
             nombre = input("Nombre: ")
             duracion = input("Duración: ")
             categoria = input("Categoría: ")
 
             service.crear_pelicula(nombre, duracion, categoria)
 
-        elif opcion == "2":   
+        elif opcion == "2": 
+            limpiar_pantalla()   
             print("Lista de peliculas:")
             print("-" * 50)
             service.listar_peliculas() 
@@ -30,6 +34,7 @@ def menu_peliculas():
             input("\nPresione Enter para continuar...")
 
         elif opcion == "3":
+            limpiar_pantalla()
             id_pelicula = input("ID de la película: ")
             service.eliminar_pelicula(int(id_pelicula))
 
