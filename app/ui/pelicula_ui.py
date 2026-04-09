@@ -1,4 +1,4 @@
-from services.pelicula_service import PeliculaService
+from app.services.pelicula_service import PeliculaService
 import time
 service = PeliculaService()
 

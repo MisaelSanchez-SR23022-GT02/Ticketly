@@ -1,4 +1,4 @@
-from models.pelicula import Pelicula
+from app.models.pelicula import Pelicula
 
 class PeliculaService:
     def __init__(self):
@@ -12,7 +12,7 @@ class PeliculaService:
 
     def listar_peliculas(self):
         for pelicula in self._peliculas:
-            print(pelicula.describir())
+            print(pelicula.imprimir())
     
     def eliminar_pelicula(self, id_pelicula):
       for pelicula in self._peliculas:

@@ -1,4 +1,4 @@
-from ui.pelicula_ui import menu_peliculas
+from app.ui.pelicula_ui import menu_peliculas
 
 def mostrar_menu():
     
