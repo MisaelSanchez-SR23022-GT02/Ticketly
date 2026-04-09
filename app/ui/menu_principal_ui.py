@@ -1,12 +1,14 @@
 from app.ui.pelicula_ui import menu_peliculas
+from app.utils.limpiar_utils import limpiar_pantalla
 
 def mostrar_menu():
     
     while True:
-        print("\n--- TICKETLY - MENÚ PRINCIPAL ---")
+        limpiar_pantalla()
+        print("\n--- SISTEMA TICKETLY - MENÚ PRINCIPAL ---")
         print("1. Gestión de Peliculas")
         print("2. Funciones")
-        print("0. Salir")
+        print("3. Salir")
         
         opcion = input("Seleccione una opción: ")
 
@@ -14,7 +16,7 @@ def mostrar_menu():
             menu_peliculas()
         elif opcion == "2":
            print("")
-        elif opcion == "0":
+        elif opcion == "3":
             print("Saliendo del sistema...")
             break
         else:
