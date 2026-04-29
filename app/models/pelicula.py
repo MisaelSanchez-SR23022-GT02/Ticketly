@@ -16,6 +16,3 @@ class Pelicula:
         
     def get_categoria(self):
         return self._categoria
-
-    def imprimir(self):    
-         return f"{self._id_pelicula:<5} | {self._nombre:<20} | {self._duracion:<5} min | {self._categoria:<10}"
