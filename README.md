@@ -9,27 +9,27 @@ El sistema está organizado bajo un esquema de Separación de Responsabilidades,
 ```
 TICKETLY/
 ├── app/
-│   ├── models/           # Definición de entidades de datos
-│   │   └── pelicula.py   # Clase modelo para películas
-│   ├── services/         # Lógica de negocio y servicios
+│   ├── models/                 # Definición de entidades de datos
+│   │   └── pelicula.py         # Clase modelo para películas
+│   ├── services/               # Lógica de negocio y servicios
 │   │   └── pelicula_service.py
-│   ├── ui/               # Capa de interfaz de usuario
-│   │   ├── peliculas_ui/ # Gestión específica de vistas de películas
+│   ├── ui/                     # Capa de interfaz de usuario
+│   │   ├── peliculas_ui/       # Gestión específica de vistas de películas
 │   │   │   ├── crear_ui.py
 │   │   │   ├── eliminar_ui.py
 │   │   │   ├── listar_ui.py
 │   │   │   └── menu_pelicula.py
 │   │   └── menu_principal_ui.py
-│   └── utils/            # Funciones auxiliares y herramientas
+│   └── utils/                  # Funciones auxiliares y herramientas
 │       ├── limpiar_utils.py
 │       └── logo_utils.py
-├── docs/                 # Documentación técnica
+├── docs/                       # Documentación técnica
 │   └── pseudocodigo/
 │       └── Ticketly.psc
-├── tests/                # Pruebas unitarias del sistema
-├── .gitignore            # Archivos ignorados por Git
-├── main.py               # Punto de entrada de la aplicación
-└── README.md             # Documentación principal
+├── tests/                      # Pruebas unitarias del sistema
+├── .gitignore                  # Archivos ignorados por Git
+├── main.py                     # Punto de entrada de la aplicación
+└── README.md                   # Documentación principal
 ```
 
 - `app/models/`: Contiene las clases que representan los datos del sistema, como `pelicula.py`, asegurando que la estructura de la información esté centralizada..
