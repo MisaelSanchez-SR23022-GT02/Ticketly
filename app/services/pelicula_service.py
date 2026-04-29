@@ -2,21 +2,20 @@ from app.models.pelicula import Pelicula
 
 class PeliculaService:
     def __init__(self):
-        self._next_id = 1
+        self._contador_id = 1
         self._peliculas = []
 
     def crear_pelicula(self, nombre, duracion, categoria):
-        nueva_pelicula = Pelicula(self._next_id, nombre, duracion, categoria)
+        nueva_pelicula = Pelicula(self._contador_id, nombre, duracion, categoria)
         self._peliculas.append(nueva_pelicula)
-        self._next_id += 1
+        self._contador_id += 1
+        return nueva_pelicula
 
     def listar_peliculas(self):
-        for pelicula in self._peliculas:
-            print(pelicula.imprimir())
-    
+        return self._peliculas
+
     def eliminar_pelicula(self, id_pelicula):
-      for pelicula in self._peliculas:
-        if pelicula.get_id() == id_pelicula:
-            self._peliculas.remove(pelicula)
-            return True
-      return False
+        for i, p in enumerate(self._peliculas):
+            if p.get_id() == int(id_pelicula):
+                return self._peliculas.pop(i)
+        return None
