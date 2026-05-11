@@ -1,7 +1,5 @@
 def ejecutar_ver_asientos(service):
-
     try:
-
         id_sala = int(
             input(" Ingrese Id de sala: ")
         )
