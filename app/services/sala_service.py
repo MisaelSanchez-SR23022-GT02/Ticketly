@@ -1,28 +1,19 @@
 from app.models.sala import Sala
 
-
 class SalaService:
-
     def __init__(self):
-
         self._contador_id = 1
         self._salas = []
 
     # Crear Sala
-
     def crear_sala(self, capacidad):
-
         nueva_sala = Sala(self._contador_id, capacidad)
-
         self._salas.append(nueva_sala)
-
         self._contador_id += 1
-
         return nueva_sala
 
 
     # Listar Sala
-
     def listar_salas(self):
         return self._salas
 

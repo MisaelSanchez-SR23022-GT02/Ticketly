@@ -13,8 +13,6 @@ console = Console()
 
 def mostrar_menu_salas(service):
 
-    service = SalaService()
-
     while True:
         limpiar_pantalla()
         console.print(getLogo(), style="bold blue")
@@ -38,6 +36,8 @@ def mostrar_menu_salas(service):
             input()
         elif opcion == "3":
             ejecutar_ver_asientos(service)
+            console.print("[bold red]\nPresione Enter para continuar...[/]")
+            input()
         elif opcion == "0":
             break
         else:

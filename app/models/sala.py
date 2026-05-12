@@ -1,7 +1,5 @@
 class Sala:
-
     def __init__(self, id_sala, capacidad):
-
         self._id = id_sala
         self._capacidad = capacidad
         self._disponibles = capacidad

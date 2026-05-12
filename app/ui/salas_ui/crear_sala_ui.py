@@ -22,7 +22,6 @@ def ejecutar_crear_sala(service):
             continue 
 
         capacidad = int(entrada)
-
     # Validaciones
         if capacidad > 50:
             capacidad = 50
@@ -33,6 +32,7 @@ def ejecutar_crear_sala(service):
             print(f"[bold blue] Capacidad ajustada al minimo: [bold red]{capacidad}[/][/]")
 
         nueva_sala = service.crear_sala(capacidad)
+
         console.print("-" * 55, style="bright_black")
         console.print(f"[bold green]Sala creada con ID:[/] [bold red]{nueva_sala.get_id()}[/]")
         console.print("-" * 55, style="bright_black")
