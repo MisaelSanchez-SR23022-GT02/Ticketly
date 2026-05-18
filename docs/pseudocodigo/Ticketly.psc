@@ -143,6 +143,7 @@ Algoritmo Ticketly
                     Escribir "--- GESTION DE FUNCIONES ---"
                     Escribir "1. Listar funciones"
                     Escribir "2. Agregar funcion"
+                    Escribir "3. Actualizar pelicula"
                     Escribir "0. Volver"
                     Escribir "Seleccione: "
                     Leer sub_opcion_menu
@@ -199,6 +200,16 @@ Algoritmo Ticketly
                                     FinSi
                                 FinSi
                             FinSi
+                        3:
+                            Si cantidad_peliculas = 0 Entonces
+                                Escribir "No hay peliculas registradas."
+                                Esperar Tecla
+                            Sino
+                                MostrarPeliculas(id_peliculas, titulo_peliculas, duracion_peliculas, genero_peliculas, cantidad_peliculas)
+                                Escribir "Ingrese el ID de la pelicula a actualizar: "
+                                Leer numero_ingresado
+                                ActualizarPelicula(id_peliculas, titulo_peliculas, duracion_peliculas, genero_peliculas, cantidad_peliculas, numero_ingresado)
+                            FinSi                    
                     FinSegun
                 Hasta Que sub_opcion_menu = 0
 				
@@ -377,4 +388,70 @@ SubProceso MostrarFunciones(arreglo_ids, arreglo_pelis, arreglo_salas, arreglo_h
         FinPara
     FinSi
     Esperar Tecla
+FinSubProceso
+
+SubProceso ActualizarPelicula(arreglo_ids, arreglo_titulos, arreglo_durs, arreglo_generos, cantidad, id_buscado)
+    Definir i Como Entero
+    Definir indice_encontrado Como Entero
+    Definir encontrado Como Logico
+    Definir nuevo_titulo, nuevo_genero Como Caracter
+    Definir nueva_duracion Como Entero
+    
+    encontrado <- Falso
+    indice_encontrado <- 0
+    
+    // Validacion: ID existente
+    Para i <- 1 Hasta cantidad Hacer
+        Si arreglo_ids[i] = id_buscado Entonces
+            encontrado <- Verdadero
+            indice_encontrado <- i
+        FinSi
+    FinPara
+    
+    Si encontrado = Falso Entonces
+        Escribir "Error: No existe pelicula con ID ", id_buscado
+        Esperar Tecla
+    Sino
+        Limpiar Pantalla
+        Escribir "--- ACTUALIZAR PELICULA ID: ", id_buscado, " ---"
+        Escribir "Datos actuales:"
+        Escribir "  Titulo  : ", arreglo_titulos[indice_encontrado]
+        Escribir "  Duracion: ", arreglo_durs[indice_encontrado], " min"
+        Escribir "  Genero  : ", arreglo_generos[indice_encontrado]
+        Escribir "--------------------------------------------"
+        
+        // Validacion: Titulo no vacio
+        Repetir
+            Escribir "Nuevo titulo (actual: ", arreglo_titulos[indice_encontrado], "): "
+            Leer nuevo_titulo
+            Si nuevo_titulo = "" Entonces
+                Escribir "Error: El titulo no puede estar vacio."
+            FinSi
+        Hasta Que nuevo_titulo <> ""
+        
+        // Validacion: Duracion mayor a 0
+        Repetir
+            Escribir "Nueva duracion en minutos (actual: ", arreglo_durs[indice_encontrado], "): "
+            Leer nueva_duracion
+            Si nueva_duracion <= 0 Entonces
+                Escribir "Error: La duracion debe ser mayor a 0."
+            FinSi
+        Hasta Que nueva_duracion > 0
+        
+        // Validacion: Genero no vacio
+        Repetir
+            Escribir "Nuevo genero (actual: ", arreglo_generos[indice_encontrado], "): "
+            Leer nuevo_genero
+            Si nuevo_genero = "" Entonces
+                Escribir "Error: El genero no puede estar vacio."
+            FinSi
+        Hasta Que nuevo_genero <> ""
+        
+        arreglo_titulos[indice_encontrado] <- nuevo_titulo
+        arreglo_durs[indice_encontrado] <- nueva_duracion
+        arreglo_generos[indice_encontrado] <- nuevo_genero
+        
+        Escribir "Pelicula actualizada correctamente."
+        Esperar Tecla
+    FinSi
 FinSubProceso
