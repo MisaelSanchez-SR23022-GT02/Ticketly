@@ -19,3 +19,7 @@ class PeliculaService:
             if p.get_id() == int(id_pelicula):
                 return self._peliculas.pop(i)
         return None
+    
+    def buscar_por_id(self, id_buscado):
+        return next((p for p in self._peliculas
+                     if p.get_id() == int(id_buscado)), None)

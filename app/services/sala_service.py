@@ -25,3 +25,7 @@ class SalaService:
                 return sala
 
         return None
+    
+    def buscar_por_id(self, id_buscado):
+        return next((s for s in self._salas
+                     if s.get_id() == int(id_buscado)), None)
