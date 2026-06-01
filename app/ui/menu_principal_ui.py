@@ -1,8 +1,7 @@
+from app.ui.funciones_ui.menu_funciones import mostrar_menu_funcion
 from app.ui.peliculas_ui.menu_pelicula import mostrar_menu_peliculas
-from app.services.pelicula_service import PeliculaService
 from app.ui.salas_ui.menu_salas import mostrar_menu_salas
 from app.utils.limpiar_utils import limpiar_pantalla
-from app.services.sala_service import SalaService
 from app.utils.logo_utils import getLogo
 from rich.console import Console
 from rich.prompt import Prompt
@@ -10,9 +9,7 @@ from rich.panel import Panel
 
 console = Console()
 
-def mostrar_menu():
-    pelicula_service = PeliculaService()
-    salas_service = SalaService()
+def mostrar_menu(pelicula_service,salas_service, funcion_service):
     
     while True:
         limpiar_pantalla()
@@ -21,6 +18,7 @@ def mostrar_menu():
         menu_texto = (
             "[bold cyan]1.[/] Gestión de Peliculas\n"
             "[bold cyan]2.[/] Gestión de Salas\n"
+            "[bold cyan]3.[/] Gestión de Funciones\n"
             "[bold cyan]3.[/] Salir"
         )
         
@@ -30,8 +28,10 @@ def mostrar_menu():
 
         if opcion == "1":
              mostrar_menu_peliculas(pelicula_service)
-        if opcion == "2":
+        elif opcion == "2":
              mostrar_menu_salas(salas_service)
-        elif opcion == "3":
+        elif opcion == "3": 
+             mostrar_menu_funcion(funcion_service)
+        elif opcion == "4":
             console.print("[bold red]Saliendo del sistema...[/]")
             break
