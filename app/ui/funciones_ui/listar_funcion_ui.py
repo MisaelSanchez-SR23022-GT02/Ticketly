@@ -20,11 +20,14 @@ def ejecutar_listar(service):
     tabla = Table(title="Lista de funciones")
 
     tabla.add_column("ID",  style="cyan", no_wrap=True)
-    tabla.add_column("ID_PELICULA", style="magenta")
-    tabla.add_column("ID_SALA",  style="green")
-    tabla.add_column("HORA",  style="green")
+    tabla.add_column("ID Película", style="magenta")
+    tabla.add_column("ID Sala",  style="green")
+    tabla.add_column("Hora",  style="green")
 
     for f in funciones:
-        tabla.add_row(str(f.get_id()), str(f.get_id_pelicula()), str(f.get_id_sala()), f.get_hora_funcion())
+        tabla.add_row(str(f.get_id()), 
+                      str(f.get_id_pelicula()), 
+                      str(f.get_id_sala()), 
+                      f.get_hora_funcion())
     
     console.print(tabla)

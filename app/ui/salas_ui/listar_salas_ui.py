@@ -24,6 +24,8 @@ def ejecutar_listar(service):
     tabla.add_column("Libres",  style="green")
 
     for s in salas:
-        tabla.add_row(str(s.get_id()), str(s.get_capacidad()), str(s.get_disponibles()))
+        tabla.add_row(str(s.get_id()), 
+                      str(s.get_capacidad()), 
+                      str(s.get_disponibles()))
     
     console.print(tabla)
