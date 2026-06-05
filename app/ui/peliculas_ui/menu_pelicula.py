@@ -1,3 +1,4 @@
+from app.ui.peliculas_ui.actualizar import ejecutar_actualizar
 from app.ui.peliculas_ui.eliminar_ui import ejecutar_eliminar
 from app.ui.peliculas_ui.listar_ui import ejecutar_listar
 from app.ui.peliculas_ui.crear_ui import ejecutar_crear
@@ -17,7 +18,8 @@ def mostrar_menu_peliculas(service):
         menu_texto = (
             "[bold cyan]1.[/] Agregar Peliculas\n"
             "[bold cyan]2.[/] Mostrar Peliculas\n"
-            "[bold cyan]3.[/] Eliminar Peliculas\n"
+            "[bold cyan]3.[/] Actualizar Peliculas\n"
+            "[bold cyan]4.[/] Eliminar Peliculas\n"
             "[bold cyan]0.[/] Salir"
         )
 
@@ -32,6 +34,8 @@ def mostrar_menu_peliculas(service):
             console.print("[bold red]\nPresione Enter para continuar...[/]")
             input()
         elif opcion == "3": 
+            ejecutar_actualizar(service)
+        elif opcion == "4": 
             ejecutar_eliminar(service)
         elif opcion == "0": 
             break

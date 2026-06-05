@@ -16,3 +16,12 @@ class Pelicula:
         
     def get_categoria(self):
         return self._categoria
+    
+    def set_nombre(self, nombre):
+        self._nombre = nombre
+
+    def set_duracion(self, duracion):
+        self._duracion = duracion
+
+    def set_categoria(self, categoria):
+        self._categoria = categoria

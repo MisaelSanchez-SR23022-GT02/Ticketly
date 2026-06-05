@@ -20,6 +20,15 @@ class PeliculaService:
                 return self._peliculas.pop(i)
         return None
     
+    def actualizar_pelicula(self, id_pelicula, nuevo_nombre, nueva_duracion, nueva_categoria):
+        pelicula = self.buscar_por_id(id_pelicula)
+        if pelicula:
+            pelicula.set_nombre(nuevo_nombre)
+            pelicula.set_duracion(nueva_duracion)
+            pelicula.set_categoria(nueva_categoria)
+            return pelicula
+        return None
+    
     def buscar_por_id(self, id_buscado):
         return next((p for p in self._peliculas
                      if p.get_id() == int(id_buscado)), None)
