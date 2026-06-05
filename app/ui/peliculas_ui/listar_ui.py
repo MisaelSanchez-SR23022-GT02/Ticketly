@@ -25,6 +25,9 @@ def ejecutar_listar(service):
     tabla.add_column("Duracion",  style="green")
 
     for p in peliculas:
-        tabla.add_row(str(p.get_id()), p.get_nombre(), p.get_categoria(), p.get_duracion())
+        tabla.add_row(str(p.get_id()),
+                       p.get_nombre(),
+                       p.get_categoria(), 
+                       p.get_duracion())
     
     console.print(tabla)

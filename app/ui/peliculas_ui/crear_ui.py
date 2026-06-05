@@ -5,7 +5,6 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich import print
 
-
 console = Console()
 
 def ejecutar_crear(service):
@@ -32,10 +31,15 @@ def ejecutar_crear(service):
             break
         console.print("[bold red] Debes ingresar una categoría.[/]")
 
-    service.crear_pelicula(nom, dur, cat)
+    pelicula_creada = service.crear_pelicula(nom, dur, cat)
 
     console.print("-" * 55, style="bright_black")
-    console.print(f"[bold green]Película [bold red]{nom}[/] creada con éxito.[/]")
+    
+    if pelicula_creada is None:
+        console.print(f"[bold red]Error: La película [bold yellow]{nom}[/] ya se encuentra registrada en el catálogo.[/]")
+    else:
+        console.print(f"[bold green]Película [bold red]{nom}[/] creada con éxito.[/]")
+        
     console.print("-" * 55, style="bright_black")
 
     console.print("[bold red]\nPresione Enter para continuar...[/]")

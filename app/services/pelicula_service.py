@@ -6,6 +6,10 @@ class PeliculaService:
         self._peliculas = []
 
     def crear_pelicula(self, nombre, duracion, categoria):
+        for pelicula in self._peliculas:
+         if pelicula.get_nombre().lower() == nombre.lower():
+            return None
+
         nueva_pelicula = Pelicula(self._contador_id, nombre, duracion, categoria)
         self._peliculas.append(nueva_pelicula)
         self._contador_id += 1
