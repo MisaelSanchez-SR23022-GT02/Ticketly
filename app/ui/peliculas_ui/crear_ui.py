@@ -36,7 +36,7 @@ def ejecutar_crear(service):
     console.print("-" * 55, style="bright_black")
     
     if pelicula_creada is None:
-        console.print(f"[bold red]Error: La película [bold yellow]{nom}[/] ya se encuentra registrada en el catálogo.[/]")
+        console.print(f"[bold yellow][!][/] [bold red]Error: La película [bold yellow]{nom}[/] ya se encuentra registrada en el catálogo.[/]")
     else:
         console.print(f"[bold green]Película [bold red]{nom}[/] creada con éxito.[/]")
         
