@@ -39,15 +39,23 @@ TICKETLY/
 └── README.md                       # Documentación principal
 ```
 
+<<<<<<< HEAD
 - `app/models/`: Contiene las clases que representan los datos del sistema, como `pelicula.py`, asegurando que la estructura de la información esté centralizada..
+=======
+>>>>>>> main
 - `app/services/` (Capa de Lógica de Negocio): Es el núcleo del sistema. Aquí reside la lógica para:
   - Verificar la disponibilidad de horarios.
   - Validar que un asiento específico no esté ocupado antes de confirmar la venta.
   - Actualizar el contador de asientos disponibles en tiempo real.
+<<<<<<< HEAD
 - `app/ui/`: Gestiona la interacción con el usuario mediante menús en consola. Esta capa utiliza la librería **[Rich](https://rich.readthedocs.io/en/stable/)** para mejorar la interfaz gráfica, permitiendo el uso de colores, tablas y estilos avanzados que facilitan la lectura de datos y la navegación por los menús.
 - `app/utils/`: Incluye herramientas reutilizables, como el manejo de limpieza de pantalla (`limpiar_utils.py`) y la visualización de elementos gráficos de identidad (`logo_utils.py`).
 - `docs/pseudocodigo/`: Contiene la lógica algorítmica inicial (`Ticketly.psc`), sirviendo como plano técnico antes de la implementación final.
 - `main.py`: El archivo principal que orquesta el inicio de la aplicación y el despliegue del menú inicial.
+=======
+- `app/ui/`: Gestiona la interacción con el usuario, mediante menús en consola, capturando los datos necesarios para las transacciones.
+- `docs/pseudocodigo/`: Contiene la lógica algorítmica inicial (`Ticketly.psc`), sirviendo como plano técnico antes de la implementación final.
+>>>>>>> main
 
 ## Autores
 
