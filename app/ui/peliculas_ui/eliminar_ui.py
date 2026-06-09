@@ -33,7 +33,6 @@ def ejecutar_eliminar(service):
             console.print("-" * 55, style="bright_black")
             console.print("[bold red]Presione Enter para continuar...[/]")
             input()
-            break
 
         console.print("[bold red]\nPresione Enter para continuar...[/]")
         input()
