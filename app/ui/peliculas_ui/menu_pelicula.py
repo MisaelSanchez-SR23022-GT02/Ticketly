@@ -25,7 +25,7 @@ def mostrar_menu_peliculas(service):
 
         console.print(Panel(menu_texto, title="[bold white]MODULO DE PELICULAS[/]", expand=False))
         
-        opcion = Prompt.ask("Seleccione una opción", choices=["1", "2", "3", "0"])
+        opcion = Prompt.ask("Seleccione una opción", choices=["1", "2", "3", "4", "0"])
 
         if opcion == "1":
             ejecutar_crear(service)

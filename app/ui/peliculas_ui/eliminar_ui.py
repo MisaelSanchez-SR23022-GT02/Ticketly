@@ -31,7 +31,8 @@ def ejecutar_eliminar(service):
             console.print("-" * 55, style="bright_black")
             console.print(f"[bold yellow]Película con ID [bold red]{id_p}[/] no encontrada.[/]")
             console.print("-" * 55, style="bright_black")
-            continue
+            console.print("[bold red]Presione Enter para continuar...[/]")
+            input()
 
         console.print("[bold red]\nPresione Enter para continuar...[/]")
         input()
