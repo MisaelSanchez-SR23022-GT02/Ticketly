@@ -45,3 +45,5 @@ class BoletoService:
 
     def listar_boletos(self):
         return self._boletos
+
+        
