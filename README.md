@@ -66,7 +66,8 @@ TICKETLY/
 │   ├── conftest.py                     # Fixtures y configuración compartida de pytest
 │   ├── test_boleto_service.py          # Tests del servicio de venta de boletos
 │   ├── test_pelicula_service.py        # Tests unitarios del servicio de películas
-│   └── test_peliculas_services.py      # Tests adicionales del servicio de películas
+│   ├── test_peliculas_services.py      # Tests adicionales del servicio de películas
+│   └── test_sala_service.py            # Tests del servicio de salas
 │
 ├── .gitignore
 ├── main.py                             # Punto de entrada de la aplicación
